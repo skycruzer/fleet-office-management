@@ -15,7 +15,7 @@ const defaultOptions = {
     // Refetch on window focus for critical data
     refetchOnWindowFocus: true,
     // Handle Supabase errors globally
-    throwOnError: (error: any) => {
+    throwOnError: (error: unknown) => {
       console.error('Query error:', handleSupabaseError(error))
       return false // Don't throw, handle gracefully
     },
@@ -68,6 +68,6 @@ export const queryKeys = {
 } as const
 
 // React Query error boundary fallback
-export const queryErrorHandler = (error: Error, errorInfo: any) => {
+export const queryErrorHandler = (error: Error, errorInfo: Record<string, unknown>) => {
   console.error('React Query Error:', error, errorInfo)
 }

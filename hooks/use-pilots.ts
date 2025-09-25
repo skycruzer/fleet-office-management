@@ -75,7 +75,7 @@ export function usePilotChecks(pilotId: string | null) {
           )
         `)
         .eq('pilot_id', pilotId)
-        .order('expiry_date', { ascending: true, nullsLast: true })
+        .order('expiry_date', { ascending: true })
 
       if (error) {
         console.error('Error fetching pilot checks:', error)

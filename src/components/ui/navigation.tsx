@@ -27,6 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const navigationItems = [
   {
@@ -68,9 +69,10 @@ export function Navigation({ className }: NavigationProps) {
       aria-label="Main navigation"
       role="navigation"
     >
-      {navigationItems.map((item) => {
+      {navigationItems.map((item, index) => {
         const Icon = item.icon;
         const isActive = pathname === item.href;
+        const tabIndex = index === 0 ? 0 : -1; // Only first item is tabbable initially
 
         return (
           <Link
@@ -79,16 +81,32 @@ export function Navigation({ className }: NavigationProps) {
             className={cn(
               "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
               "hover:bg-accent hover:text-accent-foreground",
-              "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
+              "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-inset",
+              "min-h-[44px] min-w-[44px]", // Ensure touch target size
+              "focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
               isActive
-                ? "bg-accent text-accent-foreground"
+                ? "bg-accent text-accent-foreground font-semibold"
                 : "text-muted-foreground"
             )}
             aria-current={isActive ? "page" : undefined}
             aria-describedby={`nav-desc-${item.href.slice(1) || 'home'}`}
+            tabIndex={tabIndex}
+            onFocus={(e) => {
+              // Enable tab navigation when focused
+              const navLinks = e.currentTarget.parentElement?.querySelectorAll('a');
+              navLinks?.forEach((link) => link.setAttribute('tabindex', '0'));
+            }}
           >
-            <Icon className="h-4 w-4" aria-hidden="true" />
-            {item.title}
+            <Icon
+              className="h-4 w-4 flex-shrink-0"
+              aria-hidden="true"
+              role="img"
+              focusable="false"
+            />
+            <span className="truncate">{item.title}</span>
+            {isActive && (
+              <span className="sr-only">(current page)</span>
+            )}
             <span
               id={`nav-desc-${item.href.slice(1) || 'home'}`}
               className="sr-only"
@@ -98,6 +116,9 @@ export function Navigation({ className }: NavigationProps) {
           </Link>
         );
       })}
+      <div aria-live="polite" aria-atomic="true" className="sr-only" id="navigation-status">
+        {/* Screen reader announcements for navigation changes */}
+      </div>
     </nav>
   );
 }
@@ -110,33 +131,80 @@ export function MobileNavigation({ className }: MobileNavigationProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(false);
 
+  // Close mobile navigation when route changes
+  React.useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Announce navigation state changes
+  React.useEffect(() => {
+    const announcement = document.createElement("div");
+    announcement.setAttribute("aria-live", "polite");
+    announcement.className = "sr-only";
+    announcement.textContent = isOpen ? "Navigation menu opened" : "Navigation menu closed";
+    document.body.appendChild(announcement);
+
+    setTimeout(() => document.body.removeChild(announcement), 1000);
+  }, [isOpen]);
+
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button
           variant="outline"
           size="icon"
-          className={cn("md:hidden", className)}
+          className={cn(
+            "md:hidden min-h-[44px] min-w-[44px]",
+            "focus:ring-2 focus:ring-primary focus:ring-offset-2",
+            className
+          )}
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
-          aria-label="Open navigation menu"
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-describedby="mobile-nav-description"
         >
-          <Menu className="h-4 w-4" aria-hidden="true" />
-          <span className="sr-only">Toggle navigation menu</span>
+          <Menu
+            className="h-4 w-4"
+            aria-hidden="true"
+            role="img"
+            focusable="false"
+          />
+          <span className="sr-only">
+            {isOpen ? "Close" : "Open"} navigation menu
+          </span>
         </Button>
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="w-80"
+        className="w-80 focus-within:outline-none"
         id="mobile-navigation"
         aria-label="Mobile navigation menu"
+        role="dialog"
+        aria-modal="true"
+        onOpenAutoFocus={(e) => {
+          // Focus first navigation item instead of close button
+          e.preventDefault();
+          const firstNavItem = document.querySelector('#mobile-navigation a') as HTMLElement;
+          firstNavItem?.focus();
+        }}
       >
-        <div className="flex items-center gap-2 px-6 py-4">
-          <Plane className="h-6 w-6 text-primary" aria-hidden="true" />
+        <div className="flex items-center gap-2 px-6 py-4" role="banner">
+          <Plane
+            className="h-6 w-6 text-primary"
+            aria-hidden="true"
+            role="img"
+            focusable="false"
+          />
           <span className="font-bold text-lg">B767 Fleet</span>
         </div>
-        <div className="px-6">
+        <div className="px-6" role="navigation" aria-label="Mobile menu navigation">
           <Navigation />
+        </div>
+        <div
+          id="mobile-nav-description"
+          className="sr-only"
+        >
+          Use arrow keys or tab to navigate menu items. Press Escape to close.
         </div>
       </SheetContent>
     </Sheet>
@@ -176,6 +244,8 @@ export function MainNavigation({ className }: MainNavigationProps) {
           <div className="hidden md:flex items-center text-sm text-muted-foreground">
             <span>Flight Operations Center</span>
           </div>
+
+          <ThemeToggle />
 
           {user && (
             <DropdownMenu>

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./accessibility.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -79,37 +80,66 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Professional Aviation Dark Theme - High Contrast for Critical Operations */
+  --background: oklch(0.12 0 0);
+  --foreground: oklch(0.98 0 0);
+
+  /* Card system - Enhanced contrast for readability */
+  --card: oklch(0.17 0 0);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.16 0 0);
+  --popover-foreground: oklch(0.98 0 0);
+
+  /* Primary colors - Aviation blue theme */
+  --primary: oklch(0.7 0.15 240);
+  --primary-foreground: oklch(0.98 0 0);
+
+  /* Secondary system - Subtle but distinguishable */
+  --secondary: oklch(0.22 0 0);
+  --secondary-foreground: oklch(0.95 0 0);
+
+  /* Muted elements - Proper hierarchy */
+  --muted: oklch(0.20 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+
+  /* Accent - Subtle highlight */
+  --accent: oklch(0.25 0 0);
+  --accent-foreground: oklch(0.95 0 0);
+
+  /* Status colors - Aviation industry standard for dark mode */
+  --destructive: oklch(0.65 0.2 15); /* Critical red - high visibility */
+  --warning: oklch(0.75 0.15 60); /* Warning amber */
+  --success: oklch(0.6 0.12 142); /* Success green */
+
+  /* Interactive elements */
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.18 0 0);
+  --ring: oklch(0.7 0.15 240);
+
+  /* Chart colors - Enhanced visibility for dark backgrounds */
+  --chart-1: oklch(0.6 0.2 240); /* Aviation blue */
+  --chart-2: oklch(0.65 0.15 180); /* Cyan */
+  --chart-3: oklch(0.7 0.12 120); /* Green */
+  --chart-4: oklch(0.6 0.18 300); /* Purple */
+  --chart-5: oklch(0.65 0.16 30); /* Orange */
+
+  /* Sidebar - Professional cockpit-inspired */
+  --sidebar: oklch(0.14 0 0);
+  --sidebar-foreground: oklch(0.9 0 0);
+  --sidebar-primary: oklch(0.7 0.15 240);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.22 0 0);
+  --sidebar-accent-foreground: oklch(0.9 0 0);
+  --sidebar-border: oklch(0.25 0 0);
+  --sidebar-ring: oklch(0.7 0.15 240);
+
+  /* Aviation-specific dark mode variables */
+  --aviation-critical: oklch(0.65 0.2 15);
+  --aviation-warning: oklch(0.75 0.15 60);
+  --aviation-success: oklch(0.6 0.12 142);
+  --aviation-info: oklch(0.7 0.15 240);
+  --aviation-surface-elevated: oklch(0.19 0 0);
+  --aviation-surface-overlay: oklch(0.22 0 0);
 }
 
 @layer base {
@@ -231,5 +261,1223 @@
     background-color: rgb(240, 253, 244);
     border-color: rgb(134, 239, 172);
     color: rgb(22, 101, 52);
+  }
+
+  /* Mobile-First Touch Optimizations */
+  @media (max-width: 768px) {
+    /* Ensure minimum touch targets */
+    button,
+    [role="button"],
+    input[type="submit"],
+    input[type="button"],
+    a:not(.unstyled) {
+      min-height: 44px !important;
+      min-width: 44px !important;
+      padding: 0.75rem 1rem !important;
+    }
+
+    /* Touch-friendly spacing */
+    .grid > * + * {
+      margin-top: 1rem;
+    }
+
+    /* Card touch improvements */
+    .card {
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    /* Navigation touch improvements */
+    nav a,
+    nav button {
+      padding: 1rem !important;
+      margin: 0.25rem 0;
+    }
+
+    /* Table touch improvements */
+    table td,
+    table th {
+      padding: 1rem 0.75rem;
+      min-height: 44px;
+    }
+
+    /* Form touch improvements */
+    input,
+    select,
+    textarea {
+      min-height: 44px !important;
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+  }
+
+  /* Touch device improvements */
+  @media (pointer: coarse) {
+    /* Larger hit areas for touch */
+    button:not(.compact),
+    [role="button"]:not(.compact) {
+      padding: 0.875rem 1.25rem;
+    }
+
+    /* Remove hover states on touch devices */
+    button:hover,
+    [role="button"]:hover {
+      background-color: inherit;
+    }
+
+    /* Add active states for better feedback */
+    button:active,
+    [role="button"]:active {
+      transform: scale(0.98);
+      opacity: 0.8;
+    }
+  }
+
+  /* Swipe gesture support */
+  .swipe-container {
+    touch-action: pan-x;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .swipe-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Responsive grid improvements */
+  @media (max-width: 640px) {
+    .responsive-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1rem !important;
+    }
+
+    /* Stack cards vertically on mobile */
+    .metric-card-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  /* Enhanced focus for mobile keyboard navigation */
+  @media (max-width: 768px) {
+    .focus-visible:focus-visible,
+    *:focus-visible {
+      outline: 3px solid var(--color-primary) !important;
+      outline-offset: 3px !important;
+    }
+  }
+
+  /* Aviation-specific mobile improvements */
+  .mobile-metric-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    touch-action: manipulation;
+  }
+
+  .mobile-metric-card:active {
+    background: var(--color-muted);
+    transform: scale(0.99);
+  }
+
+  /* Mobile status indicators */
+  @media (max-width: 768px) {
+    .status-badge {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Touch-friendly alerts */
+    .alert-card {
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border-radius: 12px;
+      touch-action: manipulation;
+    }
+
+    .alert-card:active {
+      opacity: 0.9;
+      transform: scale(0.99);
+    }
+  }
+
+  /* Advanced Skeleton Animations */
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: calc(200px + 100%) 0;
+    }
+  }
+
+  @keyframes wave {
+    0%, 60%, 100% {
+      transform: initial;
+    }
+    30% {
+      transform: translateY(-4px);
+    }
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background-size: 200px 100%;
+  }
+
+  .animate-wave {
+    animation: wave 1.5s ease-in-out infinite;
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 2s ease-in-out infinite;
+  }
+
+  /* Animation duration utilities */
+  .animation-duration-500 {
+    animation-duration: 0.5s;
+  }
+
+  .animation-duration-1000 {
+    animation-duration: 1s;
+  }
+
+  .animation-duration-2000 {
+    animation-duration: 2s;
+  }
+
+  /* Progressive Loading States */
+  .loading-stage-1 {
+    animation: pulse-soft 1.5s ease-in-out infinite;
+  }
+
+  .loading-stage-2 {
+    animation: shimmer 2s linear infinite;
+  }
+
+  .loading-stage-3 {
+    animation: wave 1s ease-in-out infinite;
+  }
+
+  /* Content Loading Transitions */
+  @keyframes content-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .content-fade-in {
+    animation: content-fade-in 0.4s ease-out forwards;
+  }
+
+  /* Stagger loading animations */
+  .loading-stagger-1 { animation-delay: 0ms; }
+  .loading-stagger-2 { animation-delay: 100ms; }
+  .loading-stagger-3 { animation-delay: 200ms; }
+  .loading-stagger-4 { animation-delay: 300ms; }
+  .loading-stagger-5 { animation-delay: 400ms; }
+
+  /* Status Indicator Pattern Backgrounds */
+  .bg-dots {
+    background-image: radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0);
+    background-size: 8px 8px;
+  }
+
+  .bg-stripes {
+    background-image: repeating-linear-gradient(
+      45deg,
+      currentColor,
+      currentColor 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(currentColor 1px, transparent 1px),
+      linear-gradient(90deg, currentColor 1px, transparent 1px);
+    background-size: 8px 8px;
+  }
+
+  /* Enhanced status indicators with accessibility patterns */
+  .status-expired {
+    background: repeating-linear-gradient(
+      45deg,
+      rgb(254, 242, 242),
+      rgb(254, 242, 242) 4px,
+      rgb(252, 165, 165) 4px,
+      rgb(252, 165, 165) 8px
+    );
+  }
+
+  .status-critical {
+    background: radial-gradient(circle at 50% 50%, rgb(254, 242, 242) 0%, rgb(252, 165, 165) 100%);
+    animation: pulse-critical 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-critical {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  /* High contrast mode overrides for patterns */
+  @media (prefers-contrast: high) {
+    .bg-dots,
+    .bg-stripes,
+    .bg-grid {
+      background-color: transparent !important;
+      border: 2px solid currentColor !important;
+    }
+
+    .status-expired {
+      background: #ffffff !important;
+      border: 3px dashed #000000 !important;
+    }
+
+    .status-critical {
+      background: #ffffff !important;
+      border: 3px solid #000000 !important;
+      animation: none !important;
+    }
+  }
+
+  /* Aviation-Specific Typography System */
+
+  /* Font Stacks - Aviation Industry Standard */
+  :root {
+    --font-aviation-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-aviation-monospace: "JetBrains Mono", "Fira Code", "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --font-aviation-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  /* Typography Scale - Modular Scale for Aviation Applications */
+  .text-aviation-xs {
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    font-family: var(--font-aviation-primary);
+  }
+
+  .text-aviation-sm {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    font-family: var(--font-aviation-primary);
+  }
+
+  .text-aviation-base {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    font-family: var(--font-aviation-primary);
+  }
+
+  .text-aviation-md {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-family: var(--font-aviation-primary);
+  }
+
+  .text-aviation-lg {
+    font-size: 1.125rem;
+    line-height: 1.625rem;
+    font-family: var(--font-aviation-display);
+  }
+
+  .text-aviation-xl {
+    font-size: 1.375rem;
+    line-height: 1.875rem;
+    font-family: var(--font-aviation-display);
+  }
+
+  .text-aviation-2xl {
+    font-size: 1.75rem;
+    line-height: 2.125rem;
+    font-family: var(--font-aviation-display);
+  }
+
+  .text-aviation-3xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-family: var(--font-aviation-display);
+  }
+
+  .text-aviation-4xl {
+    font-size: 3rem;
+    line-height: 3.125rem;
+    font-family: var(--font-aviation-display);
+  }
+
+  /* Aviation Weight Scale - Professional Standards */
+  .font-aviation-light { font-weight: 300; }
+  .font-aviation-normal { font-weight: 400; }
+  .font-aviation-medium { font-weight: 500; }
+  .font-aviation-semibold { font-weight: 600; }
+  .font-aviation-bold { font-weight: 700; }
+  .font-aviation-black { font-weight: 900; }
+
+  /* Aviation-Specific Text Styles */
+  .text-aviation-callsign {
+    font-family: var(--font-aviation-monospace);
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+  }
+
+  .text-aviation-cert-number {
+    font-family: var(--font-aviation-monospace);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.015em;
+    color: var(--color-muted-foreground);
+  }
+
+  .text-aviation-metric {
+    font-family: var(--font-aviation-display);
+    font-weight: 700;
+    font-feature-settings: "tnum" 1, "lnum" 1; /* Tabular numbers */
+    line-height: 1.1;
+    color: var(--color-foreground);
+  }
+
+  .text-aviation-label {
+    font-family: var(--font-aviation-primary);
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-muted-foreground);
+  }
+
+  .text-aviation-status {
+    font-family: var(--font-aviation-primary);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    color: var(--color-foreground);
+  }
+
+  .text-aviation-title {
+    font-family: var(--font-aviation-display);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--color-foreground);
+  }
+
+  .text-aviation-subtitle {
+    font-family: var(--font-aviation-primary);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--color-muted-foreground);
+  }
+
+  /* Aviation Data Display Patterns */
+  .aviation-data-row {
+    font-family: var(--font-aviation-primary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .aviation-data-row:last-child {
+    border-bottom: none;
+  }
+
+  .aviation-data-cell {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    font-family: var(--font-aviation-primary);
+  }
+
+  .aviation-data-cell.numeric {
+    font-family: var(--font-aviation-monospace);
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    text-align: right;
+  }
+
+  /* Aviation Form Typography */
+  .aviation-form-label {
+    font-family: var(--font-aviation-primary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-foreground);
+  }
+
+  .aviation-form-helper {
+    font-family: var(--font-aviation-primary);
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.25;
+    color: var(--color-muted-foreground);
+  }
+
+  .aviation-form-error {
+    font-family: var(--font-aviation-primary);
+    font-weight: 500;
+    font-size: 0.75rem;
+    line-height: 1.25;
+    color: var(--color-destructive);
+  }
+
+  /* Aviation Professional Headers */
+  .aviation-page-header {
+    font-family: var(--font-aviation-display);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--color-foreground);
+    margin-bottom: 0.5rem;
+  }
+
+  .aviation-section-header {
+    font-family: var(--font-aviation-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    color: var(--color-foreground);
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .aviation-card-header {
+    font-family: var(--font-aviation-display);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--color-foreground);
+    margin-bottom: 0.75rem;
+  }
+
+  /* Aviation Professional Numbers and Data */
+  .aviation-number-display {
+    font-family: var(--font-aviation-monospace);
+    font-weight: 600;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    text-align: center;
+    color: var(--color-foreground);
+  }
+
+  .aviation-percentage {
+    font-family: var(--font-aviation-display);
+    font-weight: 700;
+    font-feature-settings: "tnum" 1;
+    color: var(--color-foreground);
+  }
+
+  .aviation-date-time {
+    font-family: var(--font-aviation-monospace);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    color: var(--color-muted-foreground);
+  }
+
+  /* Aviation Content Hierarchy Utilities */
+  .content-critical {
+    font-weight: 700;
+    color: var(--color-destructive);
+  }
+
+  .content-warning {
+    font-weight: 600;
+    color: oklch(0.7 0.15 60);
+  }
+
+  .content-success {
+    font-weight: 600;
+    color: oklch(0.55 0.15 142);
+  }
+
+  .content-muted {
+    font-weight: 400;
+    color: var(--color-muted-foreground);
+  }
+
+  /* Aviation Responsive Typography */
+  @media (max-width: 768px) {
+    .text-aviation-4xl {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
+
+    .text-aviation-3xl {
+      font-size: 1.875rem;
+      line-height: 2.125rem;
+    }
+
+    .text-aviation-2xl {
+      font-size: 1.5rem;
+      line-height: 1.875rem;
+    }
+
+    .aviation-page-header {
+      font-size: clamp(1.5rem, 5vw, 1.875rem);
+    }
+
+    /* Mobile-first aviation typography improvements */
+    .aviation-data-cell {
+      padding: 1rem 0.75rem;
+    }
+
+    .aviation-card-header {
+      font-size: 0.9375rem;
+    }
+  }
+
+  /* Aviation Focus and Interaction States */
+  .aviation-text-interactive {
+    transition: color 0.15s ease-in-out;
+    cursor: pointer;
+  }
+
+  .aviation-text-interactive:hover {
+    color: var(--color-primary);
+  }
+
+  .aviation-text-interactive:focus {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 0.125rem;
+  }
+
+  /* Aviation Professional Emphasis */
+  .aviation-emphasis-critical {
+    font-family: var(--font-aviation-display);
+    font-weight: 700;
+    color: var(--color-destructive);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aviation-emphasis-warning {
+    font-family: var(--font-aviation-display);
+    font-weight: 600;
+    color: oklch(0.7 0.15 60);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  .aviation-emphasis-success {
+    font-family: var(--font-aviation-display);
+    font-weight: 600;
+    color: oklch(0.55 0.15 142);
+  }
+
+  /* Aviation Typography for Tables and Lists */
+  .aviation-table-header {
+    font-family: var(--font-aviation-primary);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-muted-foreground);
+    background-color: var(--color-muted);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .aviation-list-item {
+    font-family: var(--font-aviation-primary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .aviation-list-item:last-child {
+    border-bottom: none;
+  }
+
+  /* Aviation Monospace Data Classes */
+  .aviation-flight-number {
+    font-family: var(--font-aviation-monospace);
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    background-color: var(--color-muted);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .aviation-aircraft-type {
+    font-family: var(--font-aviation-monospace);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    color: var(--color-foreground);
+  }
+
+  .aviation-certification-code {
+    font-family: var(--font-aviation-monospace);
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    color: var(--color-muted-foreground);
+    background-color: var(--color-muted);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.1875rem;
+  }
+
+  /* Aviation Microinteractions and Feedback Animations */
+
+  /* Smooth Transitions for All Interactive Elements */
+  .aviation-interactive {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .aviation-interactive-fast {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .aviation-interactive-slow {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Card Hover Effects */
+  .aviation-card-hover {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .aviation-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: var(--color-primary);
+  }
+
+  .aviation-card-hover:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Button Interaction Enhancements */
+  .aviation-button-primary {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .aviation-button-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .aviation-button-primary:hover::before {
+    left: 100%;
+  }
+
+  .aviation-button-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .aviation-button-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Status Badge Animations */
+  .aviation-status-badge {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .aviation-status-badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.4s ease-out;
+  }
+
+  .aviation-status-badge:hover::after {
+    left: 100%;
+  }
+
+  .aviation-status-badge:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Metric Number Counting Animation */
+  @keyframes metric-count-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .aviation-metric-animated {
+    animation: metric-count-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  /* Staggered Animation for Multiple Elements */
+  .aviation-stagger-1 { animation-delay: 0ms; }
+  .aviation-stagger-2 { animation-delay: 100ms; }
+  .aviation-stagger-3 { animation-delay: 200ms; }
+  .aviation-stagger-4 { animation-delay: 300ms; }
+  .aviation-stagger-5 { animation-delay: 400ms; }
+  .aviation-stagger-6 { animation-delay: 500ms; }
+
+  /* Icon Hover Animations */
+  .aviation-icon-hover {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .aviation-icon-hover:hover {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .aviation-icon-bounce:hover {
+    animation: icon-bounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  @keyframes icon-bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  /* Loading Indicator Animations */
+  .aviation-loading-pulse {
+    animation: aviation-pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes aviation-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .aviation-loading-spinner {
+    animation: aviation-spin 1s linear infinite;
+  }
+
+  @keyframes aviation-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Table Row Hover Effects */
+  .aviation-table-row {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .aviation-table-row:hover {
+    background-color: var(--color-muted);
+    transform: translateX(2px);
+    box-shadow: inset 3px 0 0 var(--color-primary);
+  }
+
+  /* Navigation Item Animations */
+  .aviation-nav-item {
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .aviation-nav-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .aviation-nav-item:hover::before,
+  .aviation-nav-item.active::before {
+    width: 100%;
+  }
+
+  .aviation-nav-item:hover {
+    color: var(--color-primary);
+    transform: translateY(-1px);
+  }
+
+  /* Form Input Focus Enhancements */
+  .aviation-input {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  .aviation-input:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 3px var(--color-ring);
+  }
+
+  /* Success/Error State Animations */
+  @keyframes success-check {
+    0% {
+      transform: scale(0) rotate(0deg);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2) rotate(180deg);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1) rotate(360deg);
+      opacity: 1;
+    }
+  }
+
+  .aviation-success-check {
+    animation: success-check 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  @keyframes error-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .aviation-error-shake {
+    animation: error-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+
+  /* Tooltip Animations */
+  .aviation-tooltip {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .aviation-tooltip.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Modal/Dialog Animations */
+  @keyframes modal-fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .aviation-modal-content {
+    animation: modal-fade-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Critical Alert Pulse Animation */
+  @keyframes critical-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+    }
+  }
+
+  .aviation-critical-pulse {
+    animation: critical-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Notification Slide-in Animations */
+  @keyframes notification-slide-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .aviation-notification {
+    animation: notification-slide-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Progress Bar Animation */
+  @keyframes progress-fill {
+    from { width: 0%; }
+    to { width: var(--progress-width); }
+  }
+
+  .aviation-progress {
+    animation: progress-fill 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .aviation-interactive,
+    .aviation-interactive-fast,
+    .aviation-interactive-slow,
+    .aviation-card-hover,
+    .aviation-button-primary,
+    .aviation-status-badge,
+    .aviation-icon-hover,
+    .aviation-table-row,
+    .aviation-nav-item,
+    .aviation-input,
+    .aviation-tooltip {
+      transition: none !important;
+      animation: none !important;
+    }
+
+    .aviation-metric-animated {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .aviation-card-hover:hover {
+      transform: none !important;
+    }
+
+    .aviation-button-primary:hover {
+      transform: none !important;
+    }
+  }
+
+  /* Professional Aviation Dark Mode Enhancements */
+
+  /* Dark mode status indicators with enhanced contrast */
+  .dark .aviation-status-expired {
+    background: var(--aviation-critical);
+    color: oklch(1 0 0);
+    border-color: oklch(0.7 0.2 15);
+  }
+
+  .dark .aviation-status-critical {
+    background: var(--aviation-critical);
+    color: oklch(1 0 0);
+    border-color: oklch(0.7 0.2 15);
+    box-shadow: 0 0 0 1px oklch(0.7 0.2 15 / 0.3);
+  }
+
+  .dark .aviation-status-warning {
+    background: var(--aviation-warning);
+    color: oklch(0.1 0 0);
+    border-color: oklch(0.8 0.15 60);
+  }
+
+  .dark .aviation-status-success {
+    background: var(--aviation-success);
+    color: oklch(1 0 0);
+    border-color: oklch(0.65 0.12 142);
+  }
+
+  /* Enhanced card styling for dark mode */
+  .dark .aviation-card-dark {
+    background: var(--aviation-surface-elevated);
+    border: 1px solid oklch(0.3 0 0);
+    box-shadow: 0 2px 8px oklch(0 0 0 / 0.4);
+  }
+
+  .dark .aviation-card-dark:hover {
+    background: var(--aviation-surface-overlay);
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px oklch(0 0 0 / 0.6);
+  }
+
+  /* Dark mode metric displays with enhanced visibility */
+  .dark .aviation-metric-dark {
+    color: oklch(0.95 0 0);
+    text-shadow: 0 1px 2px oklch(0 0 0 / 0.8);
+  }
+
+  .dark .aviation-critical-metric {
+    color: var(--aviation-critical);
+    text-shadow: 0 0 8px oklch(0.65 0.2 15 / 0.4);
+  }
+
+  /* Professional navigation styling for dark mode */
+  .dark .aviation-nav-dark {
+    background: oklch(0.13 0 0);
+    border-right: 1px solid oklch(0.25 0 0);
+  }
+
+  .dark .aviation-nav-item-dark {
+    color: oklch(0.8 0 0);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark .aviation-nav-item-dark:hover {
+    background: oklch(0.18 0 0);
+    color: var(--primary);
+  }
+
+  .dark .aviation-nav-item-dark.active {
+    background: oklch(0.2 0 0);
+    color: var(--primary);
+    border-right: 2px solid var(--primary);
+  }
+
+  /* Dark mode button enhancements */
+  .dark .aviation-button-dark-primary {
+    background: var(--primary);
+    color: oklch(0.98 0 0);
+    border: 1px solid oklch(0.75 0.15 240);
+    box-shadow: 0 1px 3px oklch(0 0 0 / 0.5);
+  }
+
+  .dark .aviation-button-dark-primary:hover {
+    background: oklch(0.75 0.15 240);
+    box-shadow: 0 2px 6px oklch(0 0 0 / 0.7);
+  }
+
+  .dark .aviation-button-dark-secondary {
+    background: oklch(0.2 0 0);
+    color: oklch(0.9 0 0);
+    border: 1px solid oklch(0.35 0 0);
+  }
+
+  .dark .aviation-button-dark-secondary:hover {
+    background: oklch(0.25 0 0);
+    border-color: oklch(0.4 0 0);
+  }
+
+  /* Dark mode table styling */
+  .dark .aviation-table-dark {
+    background: var(--aviation-surface-elevated);
+    border: 1px solid oklch(0.25 0 0);
+  }
+
+  .dark .aviation-table-dark th {
+    background: oklch(0.15 0 0);
+    color: oklch(0.85 0 0);
+    border-bottom: 1px solid oklch(0.3 0 0);
+  }
+
+  .dark .aviation-table-dark td {
+    border-bottom: 1px solid oklch(0.22 0 0);
+    color: oklch(0.9 0 0);
+  }
+
+  .dark .aviation-table-dark tr:hover {
+    background: oklch(0.19 0 0);
+  }
+
+  /* Enhanced focus states for dark mode accessibility */
+  .dark .aviation-focus-dark:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px oklch(0.7 0.15 240 / 0.2);
+  }
+
+  /* Dark mode alert styling */
+  .dark .aviation-alert-critical {
+    background: oklch(0.2 0.1 15);
+    border: 1px solid var(--aviation-critical);
+    color: oklch(0.95 0 0);
+  }
+
+  .dark .aviation-alert-warning {
+    background: oklch(0.22 0.08 60);
+    border: 1px solid var(--aviation-warning);
+    color: oklch(0.95 0 0);
+  }
+
+  .dark .aviation-alert-success {
+    background: oklch(0.18 0.06 142);
+    border: 1px solid var(--aviation-success);
+    color: oklch(0.95 0 0);
+  }
+
+  /* Dark mode form styling */
+  .dark .aviation-form-dark input,
+  .dark .aviation-form-dark select,
+  .dark .aviation-form-dark textarea {
+    background: oklch(0.16 0 0);
+    border: 1px solid oklch(0.3 0 0);
+    color: oklch(0.95 0 0);
+  }
+
+  .dark .aviation-form-dark input:focus,
+  .dark .aviation-form-dark select:focus,
+  .dark .aviation-form-dark textarea:focus {
+    background: oklch(0.18 0 0);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px oklch(0.7 0.15 240 / 0.15);
+  }
+
+  /* Professional dark mode shadows */
+  .dark .aviation-shadow-sm {
+    box-shadow: 0 1px 3px oklch(0 0 0 / 0.4);
+  }
+
+  .dark .aviation-shadow-md {
+    box-shadow: 0 4px 6px oklch(0 0 0 / 0.3), 0 2px 4px oklch(0 0 0 / 0.2);
+  }
+
+  .dark .aviation-shadow-lg {
+    box-shadow: 0 8px 15px oklch(0 0 0 / 0.4), 0 4px 6px oklch(0 0 0 / 0.2);
+  }
+
+  /* Dark mode skeleton adjustments */
+  .dark .aviation-skeleton-dark {
+    background: oklch(0.2 0 0);
+  }
+
+  .dark .aviation-skeleton-dark.animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      oklch(0.18 0 0),
+      oklch(0.22 0 0),
+      oklch(0.18 0 0)
+    );
+    background-size: 200px 100%;
   }
 }

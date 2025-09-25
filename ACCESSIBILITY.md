@@ -1,277 +1,285 @@
-# B767 Fleet Management - Accessibility Implementation Guide
+# Accessibility Features - B767 Fleet Management System
+
+This document outlines the comprehensive accessibility features implemented in the Fleet Office Management application to ensure WCAG 2.1 AA compliance and enhanced usability for all users, particularly in professional aviation environments.
 
 ## Overview
 
-This document outlines the comprehensive accessibility implementation for the B767 Fleet Management application, ensuring WCAG 2.1 AA compliance while addressing aviation industry-specific accessibility requirements for safety-critical information.
+The accessibility implementation follows the principles of **inclusive design** and **universal usability**, ensuring that all flight operations personnel can effectively use the system regardless of their abilities or assistive technologies.
 
-## Accessibility Features Implemented
+## 🎯 Accessibility Standards Compliance
 
-### 1. Navigation and Structure
+### WCAG 2.1 AA Compliance
+- **Perceivable**: Information is presentable in ways users can perceive
+- **Operable**: User interface components are operable by all users
+- **Understandable**: Information and UI operation are understandable
+- **Robust**: Content is robust enough for various assistive technologies
 
-#### Skip Links ✅
-- **Location**: `/src/components/ui/skip-links.tsx`
-- **Implementation**: Skip to main content, navigation, critical alerts, and fleet overview
-- **Keyboard Support**: Tab to reveal, Enter/Space to navigate
-- **Visual Design**: High contrast focus indicators that appear on keyboard focus
+### Section 508 Compatibility
+- Government accessibility standards compliance
+- Screen reader compatibility (NVDA, JAWS, VoiceOver)
+- Keyboard-only navigation support
 
-#### Semantic HTML Structure ✅
-- **Main Landmarks**: `<main>`, `<nav>`, `<header>`, `<section>`, `<aside>`
-- **Heading Hierarchy**: Proper H1-H6 structure with screen reader headings
-- **Page Structure**: Logical content flow with appropriate landmarks
+## 🚀 Key Features Implemented
 
-#### Keyboard Navigation ✅
-- **Focus Management**: All interactive elements are keyboard accessible
-- **Focus Indicators**: Enhanced focus rings with 2px offset and high contrast
-- **Tab Order**: Logical tab sequence throughout the application
-- **Escape Handling**: Modal dialogs and dropdowns support Escape key
+### 1. Enhanced Keyboard Navigation
 
-### 2. Aviation-Specific Accessibility
+#### Global Keyboard Shortcuts
+- `Alt + D` - Navigate to Dashboard
+- `Alt + P` - Navigate to Pilots
+- `Alt + A` - Navigate to Alerts
+- `Alt + S` - Navigate to Settings
+- `Alt + H` - Focus skip links
+- `Alt + M` - Focus main content
+- `Escape` - Close modal or focus main content
+- `Ctrl + ?` - Open keyboard shortcuts help
 
-#### Safety-Critical Status Indicators ✅
-- **Color Independence**: Status never relies solely on color
-- **Text Alternatives**: All status indicators include descriptive text
-- **Screen Reader Support**: Detailed announcements for certification statuses
-- **Priority Levels**: High-priority alerts use assertive ARIA live regions
+#### Focus Management
+- **Visual Focus Indicators**: High-contrast focus rings (3px solid)
+- **Focus Trap**: Modal dialogs trap focus within the dialog
+- **Focus Restoration**: Focus returns to trigger element when modals close
+- **Skip Links**: Jump to main content, navigation, and critical alerts
 
-#### Status Classifications with Screen Reader Support:
+### 2. Screen Reader Support
+
+#### ARIA Implementation
+- **Landmarks**: Proper semantic regions (banner, navigation, main, complementary)
+- **Live Regions**: Dynamic content announcements
+- **Roles**: Explicit roles for complex components
+- **States**: Current state communication (selected, expanded, checked)
+
+#### Screen Reader Announcements
+- **Navigation Changes**: Route announcements
+- **Data Updates**: Content change notifications
+- **Form Validation**: Error and success messages
+- **Loading States**: Progress and completion announcements
+
+### 3. Visual Accessibility
+
+#### High Contrast Support
+- Enhanced borders, colors, and contrast ratios for users with visual impairments
+- Automatic detection of system high contrast preferences
+- Enhanced focus indicators with 3px outlines and 2px offsets
+
+#### Motion Preferences
+- Automatic detection of reduced motion preferences
+- Disabled animations and transitions when preferred
+- Static alternatives for animated content
+
+#### Touch Target Requirements
+- Minimum 44px × 44px touch targets for all interactive elements
+- Adequate spacing between clickable elements
+- Enhanced hover states for better visual feedback
+
+### 4. Cognitive Accessibility
+
+#### Clear Information Architecture
+- **Consistent Navigation**: Predictable menu structure across all pages
+- **Clear Headings**: Proper heading hierarchy (h1 → h2 → h3)
+- **Progress Indicators**: Clear progress and completion states
+- **Error Prevention**: Input validation and clear error messages
+
+#### Enhanced Error Handling
+- Clear, descriptive error messages with suggestions for resolution
+- Success confirmations with next steps
+- Progress indicators with time estimates
+- Timeout warnings with extension options
+
+### 5. Data Table Accessibility
+
+#### Enhanced Table Features
+- **Column Headers**: Proper scope and association
+- **Sortable Columns**: Keyboard sorting with screen reader announcements
+- **Table Captions**: Descriptive captions and summaries
+- **Navigation Instructions**: Clear instructions for table navigation
+
+#### Implementation Example
 ```typescript
-EXPIRED: "CRITICAL ALERT: Certification expired X days ago. Pilot cannot fly until renewed. Immediate action required."
-CRITICAL: "URGENT: Certification expires in X days. Schedule renewal immediately to prevent flight restrictions."
-URGENT: "Important: Certification expires in X days. Action required within the next week."
-WARNING: "Notice: Certification expires in X days. Begin renewal process."
-ATTENTION: "Advisory: Certification expires in X days. Plan for renewal."
-CURRENT: "Current: Certification expires in X days. No immediate action needed."
+<Table
+  caption="B767 Pilot Certifications"
+  summary="Table showing 27 pilots with certification status. Use arrow keys to navigate and Space to sort."
+  sortable={true}
+  totalRows={27}
+/>
 ```
 
-### 3. Color Contrast and Visual Design
+## 🛠️ Technical Implementation
 
-#### WCAG AA Compliance ✅
-All color combinations tested and meet minimum contrast ratios:
+### Core Accessibility Components
 
-| Status | Text Contrast | Background | WCAG Level |
-|--------|---------------|------------|------------|
-| EXPIRED | 7.3:1 | Red-50 enhanced | AAA |
-| CRITICAL | 7.3:1 | Red-50 enhanced | AAA |
-| URGENT | 5.2:1 | Orange-50 enhanced | AA |
-| WARNING | 5.8:1 | Yellow-50 enhanced | AA |
-| ATTENTION | 5.9:1 | Blue-50 enhanced | AA |
-| CURRENT | 6.2:1 | Green-50 | AAA |
+#### Accessibility Hooks
+- `useKeyboardNavigation()` - Global keyboard shortcuts and navigation
+- `useScreenReader()` - Screen reader announcements and feedback
+- `useReducedMotion()` - Motion preference detection
+- `useHighContrast()` - High contrast mode detection
+- `useAccessibilityAnnouncements()` - Structured announcement system
 
-#### Aviation Color Coding ✅
-- Maintains FAA-standard red/yellow/green system
-- Enhanced with text descriptions and icons
-- High contrast variants for accessibility
-- Pattern/texture alternatives for color-blind users
+#### Enhanced UI Components
+- **AccessibleLoading** - Loading states with screen reader support
+- **FocusTrap** - Focus management for modals and dialogs
+- **LiveRegion** - Dynamic content announcements
+- **KeyboardShortcutsHelp** - Interactive shortcuts reference
+- **CognitiveError/Success/Progress** - Enhanced feedback components
 
-### 4. Interactive Elements
+### CSS Accessibility Framework
 
-#### Tables ✅
-- **Sortable Headers**: Keyboard accessible with Enter/Space activation
-- **Column Headers**: Proper `scope="col"` attributes
-- **Row Structure**: Semantic table markup with proper relationships
-- **Live Regions**: Sort and filter changes announced to screen readers
-
-#### Forms and Controls ✅
-- **Labels**: All form inputs have associated labels
-- **Error Messages**: Connected to inputs via `aria-describedby`
-- **Required Fields**: Marked with `aria-required="true"`
-- **Validation**: Real-time feedback with screen reader announcements
-
-#### Buttons and Links ✅
-- **Descriptive Labels**: Clear purpose for all interactive elements
-- **Icon Buttons**: Include accessible names with `aria-label`
-- **Button States**: Proper handling of disabled and pressed states
-- **Focus Indicators**: Enhanced visual focus with adequate contrast
-
-### 5. Screen Reader Support
-
-#### ARIA Implementation ✅
-- **Live Regions**: Status updates and dynamic content changes
-- **Labels and Descriptions**: Comprehensive labeling system
-- **Roles**: Proper ARIA roles for complex components
-- **States**: Current state information (expanded, selected, etc.)
-
-#### Content Structure ✅
-- **Headings**: Proper heading hierarchy for navigation
-- **Lists**: Semantic list markup for grouped information
-- **Tables**: Complete table structure with headers and captions
-- **Landmarks**: Clear page structure with ARIA landmarks
-
-### 6. Mobile and Touch Accessibility
-
-#### Touch Targets ✅
-- **Minimum Size**: All interactive elements meet 44×44px minimum
-- **Spacing**: Adequate spacing between touch targets
-- **Gestures**: Standard touch gestures supported
-- **Orientation**: Works in both portrait and landscape
-
-#### Responsive Design ✅
-- **Mobile Navigation**: Collapsible navigation with proper ARIA
-- **Text Scaling**: Content remains usable at 200% zoom
-- **Layout**: Responsive design maintains accessibility at all breakpoints
-
-## Testing Procedures
-
-### Manual Testing Checklist
-
-#### Keyboard Navigation Testing
-1. **Tab through entire application**
-   - [ ] All interactive elements are reachable
-   - [ ] Focus indicators are visible and high contrast
-   - [ ] Tab order is logical and intuitive
-   - [ ] No keyboard traps exist
-
-2. **Test skip links**
-   - [ ] Skip links appear on first tab
-   - [ ] Skip links navigate to correct sections
-   - [ ] Focus moves appropriately after skip link activation
-
-3. **Test interactive elements**
-   - [ ] Buttons activate with Enter and Space
-   - [ ] Links activate with Enter
-   - [ ] Form controls work with keyboard only
-   - [ ] Modal dialogs trap focus and close with Escape
-
-#### Screen Reader Testing
-Using NVDA, JAWS, or VoiceOver:
-
-1. **Content Structure**
-   - [ ] Headings provide clear page outline
-   - [ ] Landmarks help navigate page sections
-   - [ ] Lists and tables are properly announced
-
-2. **Interactive Elements**
-   - [ ] All buttons have descriptive names
-   - [ ] Form fields have clear labels
-   - [ ] Error messages are announced
-   - [ ] Status changes are announced appropriately
-
-3. **Aviation-Specific Content**
-   - [ ] Certification statuses are clearly announced
-   - [ ] Critical alerts receive immediate attention
-   - [ ] Pilot roles (Captain/First Officer) are distinguished
-   - [ ] Expiry dates include urgency context
-
-#### Color and Contrast Testing
-1. **Color Blindness Testing**
-   - [ ] Use browser extension or simulator
-   - [ ] Verify information isn't lost with any color blindness type
-   - [ ] Confirm status indicators work without color
-
-2. **Contrast Testing**
-   - [ ] Test with WebAIM Contrast Checker
-   - [ ] Verify all text meets 4.5:1 minimum ratio
-   - [ ] Verify large text meets 3:1 minimum ratio
-   - [ ] Test focus indicators meet 3:1 ratio with background
-
-### Automated Testing Tools
-
-#### Recommended Testing Tools
-1. **axe-core**: Comprehensive accessibility testing
-2. **WAVE**: Web accessibility evaluation
-3. **Lighthouse**: Automated accessibility audit
-4. **axe DevTools**: Browser extension for developers
-
-#### Test Commands
-```bash
-# Install accessibility testing dependencies
-npm install --save-dev @axe-core/react axe-playwright
-
-# Run accessibility tests in development
-npm run dev
-# Then use browser extensions or DevTools
-
-# Integration with testing framework
-npm install --save-dev @testing-library/jest-dom
+#### High Contrast Mode
+```css
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary: #0066cc;
+    --color-border: #000000;
+  }
+  .border { border-width: 2px !important; }
+}
 ```
 
-### Browser Testing Matrix
+#### Reduced Motion Support
+```css
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
 
-Test the application across different browsers and assistive technologies:
+#### Touch Target Enforcement
+```css
+@media (pointer: coarse) {
+  button, [role="button"] {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+}
+```
 
-| Browser | Screen Reader | Touch/Mobile | Status |
-|---------|---------------|--------------|--------|
-| Chrome | NVDA (Windows) | Android Chrome | ✅ Tested |
-| Firefox | JAWS (Windows) | Android Firefox | ✅ Tested |
-| Safari | VoiceOver (macOS) | iOS Safari | ✅ Tested |
-| Edge | NVDA (Windows) | N/A | ✅ Tested |
+## 📱 Mobile and Touch Accessibility
 
-## Implementation Files
+### Touch Interface Optimization
+- **Minimum Touch Targets**: 44px × 44px for all interactive elements
+- **Gesture Alternatives**: Tap alternatives for complex gestures
+- **Orientation Independence**: Full functionality in portrait and landscape
+- **Zoom Support**: Content remains usable at 200% zoom level
 
-### New Accessibility Components
-- `/src/components/ui/skip-links.tsx` - Skip navigation links
-- `/src/components/ui/sr-only.tsx` - Screen reader utilities
-- `/src/lib/accessibility-colors.ts` - WCAG compliant color system
+### Mobile Screen Reader Support
+- **VoiceOver (iOS)**: Complete compatibility with gestures and navigation
+- **TalkBack (Android)**: Full screen reader support with proper announcements
+- **Voice Access**: Compatible with voice command navigation
 
-### Enhanced Existing Components
-- `/src/app/layout.tsx` - Skip links integration
-- `/src/app/page.tsx` - Semantic structure and ARIA labels
-- `/src/components/layout/dashboard-layout.tsx` - Landmarks and focus management
-- `/src/components/ui/navigation.tsx` - Keyboard navigation and ARIA
-- `/src/components/ui/button.tsx` - Focus indicators and keyboard support
-- `/src/components/ui/table.tsx` - Semantic table structure
-- `/src/components/dashboard/expiring-checks-table.tsx` - Aviation-specific accessibility
+## 🎯 Aviation-Specific Accessibility
 
-## Compliance Status
+### Critical Alert System
+1. **Critical Safety Alerts**: Immediate attention with assertive announcements
+2. **Urgent Actions**: 7-30 day warnings with clear visual and audio cues
+3. **Compliance Status**: Color-independent status indicators with patterns
 
-### WCAG 2.1 AA Compliance: ✅ ACHIEVED
+### Professional Environment Considerations
+- **High-Noise Environments**: Visual alternatives to audio cues
+- **Time-Critical Operations**: Efficient keyboard shortcuts for rapid navigation
+- **Regulatory Compliance**: Documentation and audit trail support
+- **Multi-User Stations**: Quick user switching with accessibility preserved
 
-#### Level A Criteria: ✅ 100% Compliant
-- Non-text Content: Alt text for all images and icons
-- Audio and Video: Not applicable (no media content)
-- Adaptable: Semantic structure and programmatic relationships
-- Distinguishable: Color contrast and text sizing requirements met
+## 🧪 Testing and Validation
 
-#### Level AA Criteria: ✅ 100% Compliant
-- Keyboard Accessible: Full keyboard navigation support
-- Enough Time: No time limits on critical aviation data
-- Seizures and Physical Reactions: No flashing content
-- Navigable: Skip links, headings, and clear navigation
-- Input Assistance: Form labels, error handling, and help text
+### Automated Testing
+- **axe-core Integration**: Continuous accessibility testing in development
+- **Lighthouse Accessibility**: Regular automated audits
+- **Color Contrast Validation**: Automated contrast ratio checking
 
-### Aviation Industry Standards: ✅ ACHIEVED
+### Manual Testing Procedures
+1. **Keyboard Navigation**: Complete application navigation using only keyboard
+2. **Screen Reader Testing**: NVDA, JAWS, and VoiceOver compatibility testing
+3. **Visual Testing**: High contrast mode, zoom testing, and focus indicators
+4. **Cognitive Testing**: Error handling, timeout behavior, and information clarity
 
-#### FAA Compliance Considerations
-- Safety-critical information is accessible to all users
-- Color coding maintains FAA standards while adding text alternatives
-- Emergency status indicators receive appropriate priority
-- Pilot qualification information is clearly distinguished
+## 📚 Usage Guidelines
 
-#### Operational Requirements
-- Works with standard aviation workflow patterns
-- Supports quick identification of critical certifications
-- Maintains professional appearance while enhancing accessibility
-- Compatible with aviation industry assistive technologies
+### For End Users
 
-## Maintenance and Updates
+#### Keyboard Shortcuts Quick Reference
+- **Alt + Letter**: Navigate to main sections
+- **Tab/Shift+Tab**: Move between interactive elements
+- **Enter/Space**: Activate buttons and links
+- **Escape**: Close dialogs or return to main content
+- **Arrow Keys**: Navigate within data tables and lists
 
-### Regular Testing Schedule
-- **Weekly**: Automated accessibility testing in CI/CD pipeline
-- **Monthly**: Manual keyboard navigation testing
-- **Quarterly**: Screen reader testing across different tools
-- **Annually**: Full compliance audit with external accessibility expert
+#### Screen Reader Tips
+- **Landmarks**: Use heading navigation to jump between sections
+- **Live Regions**: Listen for automatic updates and status changes
+- **Form Fields**: All fields have clear labels and error messages
+- **Tables**: Use table navigation commands for data exploration
 
-### Code Review Guidelines
-1. All new components must include accessibility considerations
-2. Interactive elements require keyboard support testing
-3. Color-only information must have text alternatives
-4. ARIA attributes should be validated for correctness
-5. Screen reader testing required for complex interactions
+### For Developers
 
-### Future Enhancements
-- [ ] Voice control integration for hands-free operation
-- [ ] High contrast mode toggle for low vision users
-- [ ] Customizable font size controls
-- [ ] Audio alerts for critical certification expiries
-- [ ] Integration with aviation industry assistive technologies
+#### Implementation Checklist
+- [ ] All interactive elements have minimum 44px touch targets
+- [ ] Focus indicators are visible and high-contrast
+- [ ] ARIA labels and descriptions are provided for complex components
+- [ ] Live regions announce dynamic content changes
+- [ ] Error messages are descriptive and actionable
+- [ ] Loading states are announced to screen readers
+- [ ] Keyboard shortcuts don't conflict with assistive technology
 
-## Contact and Support
+## 📊 Compliance Status
 
-For accessibility questions or issues:
-- **Internal Team**: Fleet Operations Development Team
-- **External Audit**: Contact certified accessibility consultant
-- **User Feedback**: Collect feedback from pilots using assistive technologies
+### Current Compliance Level: **WCAG 2.1 AA**
+
+#### Perceivable
+- ✅ Text alternatives for images
+- ✅ Captions and alternatives for multimedia
+- ✅ Content can be presented in different ways without losing meaning
+- ✅ Sufficient color contrast (minimum 4.5:1 ratio)
+
+#### Operable
+- ✅ All functionality available via keyboard
+- ✅ No seizure-inducing content
+- ✅ Sufficient time limits with warnings
+- ✅ Clear navigation and page structure
+
+#### Understandable
+- ✅ Readable and understandable text
+- ✅ Content appears and operates predictably
+- ✅ Input assistance and error identification
+
+#### Robust
+- ✅ Compatible with assistive technologies
+- ✅ Valid HTML and ARIA markup
+- ✅ Future-proof accessibility implementation
+
+## 🔄 Continuous Improvement
+
+### Regular Maintenance
+- **Monthly**: Automated accessibility testing with axe-core
+- **Quarterly**: Manual accessibility review and user testing
+- **Annually**: Comprehensive third-party accessibility audit
+
+### User Feedback Integration
+- **Accessibility Feedback Channel**: Dedicated support for accessibility issues
+- **User Testing**: Regular testing sessions with users with disabilities
+- **Feature Development**: Accessibility-first approach to new features
+
+## 📞 Support and Resources
+
+### Getting Help
+- **Documentation**: This comprehensive accessibility guide
+- **Technical Support**: Contact development team for accessibility questions
+- **Training**: Available accessibility training sessions for staff
+
+### External Resources
+- **WCAG Guidelines**: [W3C Web Content Accessibility Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- **Screen Reader Guides**: Documentation for NVDA, JAWS, and VoiceOver
+- **WebAIM**: Accessibility testing tools and guidelines
 
 ---
 
-*This accessibility implementation ensures that all aviation personnel, regardless of disability status, can effectively use the B767 Fleet Management system to maintain flight safety and regulatory compliance.*
+## Summary
+
+The B767 Fleet Management System implements comprehensive accessibility features that exceed industry standards, ensuring all aviation professionals can effectively use the system regardless of their abilities. The implementation prioritizes:
+
+- **Safety**: Clear communication of critical flight safety information
+- **Efficiency**: Streamlined workflows accessible to all users
+- **Compliance**: Full WCAG 2.1 AA and Section 508 compliance
+- **Inclusivity**: Universal usability across all user groups
+- **Professional Standards**: Meeting aviation industry accessibility requirements
+
+This accessibility implementation ensures that the fleet management system is not just compliant, but truly inclusive and usable by all flight operations personnel.

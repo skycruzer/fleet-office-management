@@ -29,19 +29,23 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
 })
 
 // Helper function to handle Supabase errors
-export const handleSupabaseError = (error: any) => {
+export const handleSupabaseError = (error: unknown) => {
   console.error('Supabase error:', error)
 
-  if (error?.code === 'PGRST116') {
-    return 'No data found'
-  }
+  if (error && typeof error === 'object') {
+    const err = error as Record<string, unknown>
 
-  if (error?.code === 'PGRST301') {
-    return 'Database connection error'
-  }
+    if (err.code === 'PGRST116') {
+      return 'No data found'
+    }
 
-  if (error?.message) {
-    return error.message
+    if (err.code === 'PGRST301') {
+      return 'Database connection error'
+    }
+
+    if (typeof err.message === 'string') {
+      return err.message
+    }
   }
 
   return 'An unexpected error occurred'

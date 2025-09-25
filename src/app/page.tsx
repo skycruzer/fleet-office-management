@@ -102,7 +102,7 @@ export default function DashboardPage() {
             </SrOnly>
             <div className="grid gap-6 lg:grid-cols-1" id="critical-alerts">
               <Suspense fallback={<DashboardSkeleton />}>
-                <ExpiringChecksTable daysAhead={30} maxRows={8} title="Critical Expiring Certifications" />
+                <ExpiringChecksTable daysAhead={30} maxRows={8} />
               </Suspense>
             </div>
           </section>
