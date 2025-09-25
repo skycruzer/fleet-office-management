@@ -1,103 +1,113 @@
-import Image from "next/image";
+import { Suspense } from "react";
+import { ProtectedRoute } from "@/components/auth/protected-route";
+import { DashboardLayout, PageHeader } from "@/components/layout/dashboard-layout";
+import { FleetOverviewCards, QuickStats } from "@/components/dashboard/fleet-overview-cards";
+import { ExpiringChecksTable } from "@/components/dashboard/expiring-checks-table";
+import { PerformanceWidget } from "@/components/dashboard/performance-widget";
+import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { SrOnly } from "@/components/ui/sr-only";
+import { Download, RefreshCw } from "lucide-react";
 
-export default function Home() {
+function DashboardSkeleton() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div className="space-y-6">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <Card key={i}>
+            <CardContent className="p-6">
+              <Skeleton className="h-4 w-24 mb-2" />
+              <Skeleton className="h-8 w-16 mb-1" />
+              <Skeleton className="h-3 w-32" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      <Card>
+        <CardContent className="p-6">
+          <Skeleton className="h-64 w-full" />
+        </CardContent>
+      </Card>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <ProtectedRoute>
+      <DashboardLayout>
+        <PageHeader
+          title="Flight Operations Dashboard"
+          description="B767 Fleet Management and Pilot Certification Tracking"
+        >
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              aria-label="Refresh dashboard data"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" aria-hidden="true" />
+              Refresh
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              aria-label="Export fleet management report"
+            >
+              <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+              Export Report
+            </Button>
+          </div>
+        </PageHeader>
+
+        {/* Quick Status Indicators */}
+        <section aria-labelledby="quick-stats-heading" className="mb-6">
+          <SrOnly>
+            <h2 id="quick-stats-heading">Fleet Status Overview</h2>
+          </SrOnly>
+          <Suspense fallback={<Skeleton className="h-8 w-full" />}>
+            <QuickStats className="mb-6" />
+          </Suspense>
+        </section>
+
+        {/* Main Dashboard Content */}
+        <div className="space-y-8">
+          {/* Fleet Overview Cards */}
+          <section aria-labelledby="fleet-overview-heading" id="fleet-overview">
+            <SrOnly>
+              <h2 id="fleet-overview-heading">Fleet Metrics and Statistics</h2>
+            </SrOnly>
+            <Suspense fallback={<DashboardSkeleton />}>
+              <FleetOverviewCards />
+            </Suspense>
+          </section>
+
+          {/* Performance Monitoring Widget */}
+          <section aria-labelledby="performance-heading">
+            <SrOnly>
+              <h2 id="performance-heading">System Performance Monitoring</h2>
+            </SrOnly>
+            {/* Temporarily disabled to debug reload issue */}
+            {/* <Suspense fallback={<Skeleton className="h-64 w-full" />}>
+              <PerformanceWidget />
+            </Suspense> */}
+            <Skeleton className="h-64 w-full" />
+          </section>
+
+          {/* Critical Alerts Summary */}
+          <section aria-labelledby="critical-alerts-heading" className="space-y-6">
+            <SrOnly>
+              <h2 id="critical-alerts-heading">Critical Alerts and Key Metrics</h2>
+            </SrOnly>
+            <div className="grid gap-6 lg:grid-cols-1" id="critical-alerts">
+              <Suspense fallback={<DashboardSkeleton />}>
+                <ExpiringChecksTable daysAhead={30} maxRows={8} title="Critical Expiring Certifications" />
+              </Suspense>
+            </div>
+          </section>
+        </div>
+      </DashboardLayout>
+    </ProtectedRoute>
   );
 }
